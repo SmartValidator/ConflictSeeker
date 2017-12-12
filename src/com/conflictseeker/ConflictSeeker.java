@@ -62,7 +62,7 @@ public class ConflictSeeker {
         try {
 
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://smart-validator.net/smart_validator_test_1", "svt1",
+                    "jdbc:postgresql://smart-validator.net/smart_validator_test_3", "svt1",
                     "XagO7kfuGA1ZMxhP45u7zkna7eMB235zSTfCSzFpOy76OckuubXqlCxGyyC");
 
         } catch (SQLException e) {
@@ -75,7 +75,15 @@ public class ConflictSeeker {
 
         if (connection != null) {
             System.out.println("You made it, take control your database now!");
+            System.out.println("Running conflict seeker - start\n");
+            long startTime = System.currentTimeMillis();
             this.runConflictSeeker();
+            long stopTime = System.currentTimeMillis();
+            long elapsedTime = stopTime - startTime;
+            System.out.println("Finish conflict seeker - end\n");
+            System.out.format("Elapsed time: %d milliseconds, %d seconds\n",elapsedTime, (int) (elapsedTime / 1000) % 60);
+
+
         } else {
             System.out.println("Failed to make connection!");
         }
@@ -120,6 +128,9 @@ public class ConflictSeeker {
 
             ResultSet rs;
             for(Roa roa : validated_roas){
+//                rs = connection.createStatement().executeQuery("SELECT * FROM invalid_announcements('" + roa.prefix+ "')");
+//                rs = connection.createStatement().executeQuery("SELECT * FROM invalid_length_announcements('" + roa.prefix+ "')");
+//                rs = connection.createStatement().executeQuery("SELECT * FROM valid_announcements('" + roa.prefix+ "')");
                 rs = connection.createStatement().executeQuery("SELECT * FROM announcements WHERE prefix <<= inet '" + roa.prefix+ "'");
                 while (rs.next() ) {
                     String key = rs.getString(2)+":"+rs.getString(3);
