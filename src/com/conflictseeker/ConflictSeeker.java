@@ -1,5 +1,4 @@
-package com.company;
-import org.apache.commons.net.util.SubnetUtils;
+package com.conflictseeker;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -62,8 +61,8 @@ public class ConflictSeeker {
         try {
 
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://smart-validator.net/smart_validator_test_3", "svt1",
-                    "XagO7kfuGA1ZMxhP45u7zkna7eMB235zSTfCSzFpOy76OckuubXqlCxGyyC");
+                    "jdbc:postgresql://smart-validator.net/smart_validator_test_3", System.getProperty("validator.db.user.name"),
+                    System.getProperty("validator.db.password"));
 
         } catch (SQLException e) {
 
