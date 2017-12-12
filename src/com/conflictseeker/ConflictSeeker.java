@@ -47,8 +47,6 @@ public class ConflictSeeker {
 
         } catch (ClassNotFoundException e) {
 
-            System.out.println("Where is your PostgreSQL JDBC Driver? "
-                    + "Include in your library path!");
             e.printStackTrace();
             return;
 
@@ -73,7 +71,7 @@ public class ConflictSeeker {
         }
 
         if (connection != null) {
-            System.out.println("You made it, take control your database now!");
+            System.out.println("Connection established");
             System.out.println("Running conflict seeker - start\n");
             long startTime = System.currentTimeMillis();
             this.runConflictSeeker();
@@ -117,13 +115,6 @@ public class ConflictSeeker {
 
     private void detectOverlap(){
         try{
-//            Statement stmt = connection.createStatement();
-//            ResultSet test = stmt.executeQuery("SELECT * FROM announcements");
-//            int count =0;
-//            while(count < 38){
-//                test.next();
-//                count++;
-//            }
 
             ResultSet rs;
             for(Roa roa : validated_roas){
